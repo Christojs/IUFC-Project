@@ -7,6 +7,12 @@
 \usepackage{geometry}
 \usepackage{graphicx}
 \usepackage{wrapfig}
+ \geometry{
+ a4paper,
+ total={170mm,257mm},
+ left=20mm,
+ top=20mm,
+ }
 \hypersetup{
     colorlinks=true,
     linkcolor=blue,
@@ -50,8 +56,8 @@
 
 
 
-\title{\textbf{Red Wine Quality Prediction using Python and Machine Learning(CP-09)}}
-\author{Anaswara Biju , Sebin Sebastian and Sidharth V Menon}
+\title{\textbf{Customer Satisfaction Prediction using Python and Machine Learning(CP-08)}}
+\author{Sani Anna Varghese , Jobin Pius and Christo Joseph Sajan}
 \date{\textit{Saintgits Group of Institutions, Kottayam, Kerala}}
 
 \begin{document}
@@ -63,13 +69,14 @@
 
 
 \section{Abstract}
-The red wine quality prediction project aims to develop a model that accurately predicts the quality of red wines based on their chemical composition. By analyzing key chemical components such as Fixed acidity, Volatile acidity, chlorides, etc. The model seeks to identify patterns and correlations that influence wine quality. Utilizing machine learning algorithms we plan to create either a Logistic Regression algorithm that will classify wine based on the various inputs or a linear regression algorithm that produces a score for a wine based on input arguments. This project aims to provide winemakers with a valuable tool for enhancing production processes, ensuring consistency, and ultimately delivering high-quality wines to consumers.
+This report underscores the vital role of customer satisfaction in modern busi- ness and explores advanced strategies for enhancement. Leveraging machine learning, businesses predict and address satisfaction proactively, driving can retention, loyalty, and competitiveness. Analysis of survey data identifies key satisfaction factors for targeted improvements. Prioritizing satisfaction leads to actionable strategies outlined in the report, crucial for business success in to- day's market. By implementing these strategies, companies can achieve tangible improvements in customer satisfaction, retention, and overall business perfor- mance, ensuring a strong position in the competitive landscape.
 
 \section{Introduction}
-Red wine quality assessment is a critical task in the wine industry, as it directly influences consumer satisfaction and purchase decisions. Traditionally, wine quality assessment has relied on subjective human evaluations, which can be time-consuming and inconsistent. In this report, we explore the use of machine learning techniques to predict red wine quality based on physicochemical properties. By analyzing a dataset containing attributes such as acidity, pH, alcohol content, and quality ratings, we aim to develop a predictive model that can accurately assess wine quality objectively. This approach has the potential to revolutionize wine quality assessment, providing producers with a reliable tool for quality control and improvement.
+In the contemporary business landscape, customer satisfaction stands as a cornerstone of success, shaping consumer preferences, loyalty, and market competitiveness. This paper navigates through the pivotal role that customer satisfaction plays in driving modern business strategies and explores innovative methodologies to bolster it further. With the advent of machine learning technologies, businesses now possess the capability to anticipate and address customer satisfaction proactively, thereby fostering enhanced retention rates, brand loyalty, and a stronger foothold in the market.
+By delving into survey data analysis, companies can unveil crucial insights into the factors that significantly influence customer satisfaction, empowering targeted enhancements in their offerings. The prioritization of customer satisfaction emerges not only as a strategic imperative but as a fundamental driver of sustained business success amidst evolving consumer demands and fierce market competition.
+This paper aims to delineate actionable strategies derived from the primacy of customer satisfaction, equipping businesses with the requisite tools to drive measurable improvements in customer retention, loyalty, and overall organizational performance. Through the effective implementation of these strategies, companies can fortify their market positioning and navigate the competitive landscape with confidence and resilience.
 \section{Literature Review}
-To get started with our work and find a suitable methodology to move forward with to make our models and process data we found some papers and blogs that contained information about how we could make an effective Model for our dataset.
-Since this is a good dataset there were plenty of works for us to choose from. The ones we used are listed in the below table:
+To kickstart our project and devise an optimal methodology for modeling and data processing, we've scoured various papers and blogs. These resources pro- vide valuable insights into crafting effective models tailored to our dataset. Since this is a good dataset there were plenty of works for us to choose from. 'The ones we used are listed in the below table:
 
 
 \begin{table}[h]
@@ -79,28 +86,24 @@ Since this is a good dataset there were plenty of works for us to choose from. T
 \hline
 Sl.No & Paper/blog title & Features & Link to paper/blog \\ \hline
 1. &
-  Red Wine Quality Prediction Using Machine Learning Techniques &
-  \begin{tabular}{0.8\textwidth}[c]{@{}l@{}}Detailed information on methodology and how to go about\\ training a model using this dataset.\end{tabular} &
-  https://ieeexplore.ieee.org/document/9104095 \\ \hline
+  A study on extraction of customer satisfaction factors &
+  \begin{tabular}{0.8\textwidth}IEEE Conference Publication[c]{@{}l@{}}Information regarding extraction of features we have used in this project.\end{tabular} &
+  https://ieeexplore.ieee.org/document/291137height2. \\ \hline
 2. &
-  A machine learning application in wine quality prediction &
-  \begin{tabular}{0.8\textwidth}[c]{@{}l@{}}Information regarding some of the models we have used in \\ this project\end{tabular} &
-  https://ijream.org/papers/iIJREAMV09I01SJ001.pdf \\ \hline
+  Study on the customer satisfaction evaluation model and index system of the management consulting enterprises &
+  \begin{tabular}{0.8\textwidth}[c]{@{}l@{}}Increasing accuracy of models using data structure and feature selection\end{tabular} &
+  https://ieeexplore.ieee.org/document/6321227 \\ \hline
 3. &
-  Construction of Wine Quality Prediction Model based on Machine Learning Algorithm &
-  \begin{tabular}{0.8\textwidth}[c]{@{}l@{}}Increasing accuracy of models using data structuring and \\ feature selection.\end{tabular} &
-  https://dl.acm.org/doi/10.1145/3480433.3480443 \\ \hline
-4. &
-  Selection of important features and predicting wine quality  using machine learning techniques &
-  In depth knowledge of feature selection &
-  https://www.sciencedirect.com/science/article/pii/S1877050917328053 \\ \hline
+  Customer Satisfaction of E-Commerce Websites &
+  \begin{tabular}{0.8\textwidth}[c]{@{}l@{}}In depth knowledge of various features of model training.\end{tabular} &
+  https://ieeexplore.ieee.org/abstract/document/5072797 \\ \hline
 \end{tabular}%
-
+}
 \end{table}
 
 \section{Libraries Used}
 In the project for various tasks, following packages are used
-\begin{lstlisting}[language=Python, caption=Libraries used]
+\begin{lstlisting}[language=Python]
     Pandas
     NumPy
     scikit-learn
@@ -116,58 +119,54 @@ In the project for various tasks, following packages are used
         \item Handle missing values and outliers.
         \item Perform feature scaling to standardize the numerical features.
     \end{itemize}
-
+    
     \item Exploratory Data Analysis (EDA):
     \begin{itemize}
         \item Visualize the distribution of each feature.
         \item Explore correlations between features and wine quality.
     \end{itemize}
-
+    
     \item Feature Selection:
     \begin{itemize}
         \item Select relevant features based on correlation analysis and domain knowledge.
     \end{itemize}
-
+    
     \item Model Selection:
     \begin{itemize}
         \item Split the dataset into training and testing sets.
-        \item Train several machine learning models, including Random Forest, Support Vector Machine, and Gradient Boosting.
+        \item Train several machine learning models, including Random Forest, Support Vector Machine, and k-means clustering.
         \item Evaluate each model's performance using cross-validation and select the best-performing model.
     \end{itemize}
-
+    
     \item Model Evaluation:
     \begin{itemize}
         \item Assess the performance of the selected model on the test dataset using evaluation metrics such as accuracy, precision, recall, and F1-score.
     \end{itemize}
-
+    
     \item Results and Discussion:
     \begin{itemize}
-        \item Present the results of the model evaluation and discuss the implications for wine quality prediction.
+        \item Present the results of the model evaluation and discuss the implications for customer satisfaction prediction.
     \end{itemize}
 
 \end{enumerate}
 \section{Implementation}
 
-The implementation of the red wine quality prediction model using Python and machine learning involved several key steps:
+The implementation of the customer satisfaction prediction model using Python and machine learning involved several key steps:
 
 \begin{itemize}
   \item To begin, we imported the necessary libraries, including \texttt{pandas}, \texttt{numpy}, \texttt{matplotlib}, and \texttt{seaborn}, to facilitate data handling, visualization, and analysis.
-
-  \item Next, we loaded the red wine quality dataset using the \texttt{pandas} library and displayed the first few rows to gain a preliminary understanding of the data structure.
-
+  
+  \item Next, we loaded the customer satisfaction dataset using the \texttt{pandas} library and displayed the first few rows to gain a preliminary understanding of the data structure.
+  
   \item For data preprocessing, we checked for missing values and duplicated rows, and we visualized the distribution of quality ratings using histograms and box plots. Additionally, we explored correlations between features using a heatmap to inform feature selection and engineering.
-
-  \item Based on our analysis, we selected relevant features such as alcohol content, volatile acidity, and sulphates, which exhibited significant correlations with wine quality. We also encoded the quality ratings as binary labels, considering wines with a quality rating of 6 or higher as "good" and the rest as "not good."
-
-  \item For model training, we split the dataset into training and testing sets, with 80\% of the data used for training and 20\% for testing. We evaluated the performance of various machine learning algorithms, including \textbf{linear regression, decision trees, random forest, and gradient boosting}, using cross-validation.
-
-  \item Hyperparameter tuning was conducted for each algorithm using \texttt{GridSearchCV} to find the optimal combination of parameters that maximized predictive performance.
-
-  \item Once trained, we evaluated the models' performance on the testing set using metrics such as accuracy, precision, recall, and F1-score. The random forest algorithm exhibited the best performance, achieving an accuracy of approximately 91\% on the testing set.
-
-  \item To deploy the final model, we saved it using the \texttt{joblib} library, allowing for easy integration into production environments. This enables real-time predictions for assessing red wine quality based on input features.
+  
+  
+  \item For model training, we split the dataset into training and testing sets, with 80\% of the data used for training and 20\% for testing. We evaluated the performance of various machine learning algorithms, including \textbf{linear regression, decision trees, random forest,}, using cross-validation.
+  
+  \item Once trained, we evaluated the models' performance on the testing set using metrics such as accuracy, precision, recall, and F1-score. The decision tree algorithm exhibited the best performance, achieving an accuracy of approximately 92\% on the testing set.
 
 
+  
   Results of these implementations are discussed in the next section.
 \end{itemize}
 
@@ -176,31 +175,22 @@ We found from analysing our dataset the following graphs which show the collinea
 
 \begin{figure}[h]
 
-\begin{subfigure}{0.5\textwidth}
-\includegraphics[width=0.9\linewidth, height=6cm]{1.png} 
-\caption{Input and Output Variable Distribution}
-\label{fig:subim1}
-\end{subfigure}
+
 \begin{subfigure}{0.5\textwidth}
 \includegraphics[width=0.9\linewidth, height=6cm]{1.png}
 \caption{Covariance of variables}
 \label{fig:subim2}
 \end{subfigure}
 
-\caption{Red Wine data}
+\caption{Customer satisfaction data}
 \label{fig:image2}
 \end{figure}
 
 From the plots we find that the variables are not uniformly distributed and there is multi-colinearity between these variables:
 
-\begin{itemize}
-    \item Volatile acidity and Citric Acid
-    \item Density and Fixed Acidity
-    \item free Sulphur Dioxide and Total Sulphur Dioxide
-\end{itemize}
 We must be cautious with these variables as they can cause errors in the model.\\
 For processing these we removed some of the vectors that had high collinearity with others and also used \verb|StandardScaler| from the \verb|sci-kit library|. This is used to bring values from different columns into from whatever range they are in to a range of 0 to 1. This is important as higher values will cause heavy biasing.\\
-Popular classical Machine learning algorithms from  the {\href{https://www.python.org/}{\texttt{Python}} library \href{https://scikit-learn.org/stable/index.html}{{\texttt{sklearn}}}} is used for model training and testing. From this library we will be using the \textbf{Logistic Regression model}, \textbf{Random Forest Classifier}, \textbf{Bagging Classifier}, \textbf{Voting Classifier}. Initially the 1st three models were trained and using them we have trained the voting classifier.\\ 
+Popular classical Machine learning algorithms from  the {\href{https://www.python.org/}{\texttt{Python}} library \href{https://scikit-learn.org/stable/index.html}{{\texttt{sklearn}}}} is used for model training and testing. From this library we will be using the \textbf{Logistic Regression model}, \textbf{Decision tree model},\textbf{Random forest },\textbf{SVM}
 The performance evaluation of the models was done using their \textbf{Accuracy Score, Recall score and Precision score}. These scores are shown in the table below: 
 
 \begin{center}
@@ -208,62 +198,66 @@ The performance evaluation of the models was done using their \textbf{Accuracy S
 \begin{tabular}{|l|l|l|l|l|}
 \hline
 \begin{tabular}[c]{@{}l@{}}Model\\  No.\end{tabular} & Model Name               & Precision & Accuracy & Recall \\ \hline
-1.                                                   & Logistic Regression      & 0.825     & 0.814    & 0.828  \\ \hline
-2.                                                   & Random Forest Classifier & 0.829     & 0.818    & 0.832  \\ \hline
-3.                                                   & Bagging Classifier       & 0.791     & 0.772    & 0.782  \\ \hline
-4.                                                   & Voting Classifier        & 0.838     & 0.822    & 0.828  \\ \hline
+1.                                                   & Logistic Regression      & 0.74     & 0.74    & 0.74  \\ \hline
+2.                                                   & Decision tree & 0.92     & 0.92    & 0.92  \\ \hline
+3.                                                   & Random forest      & 0.94751     & 0.94750    & 0.94541 \\ \hline
+4.                                                   & SVM     & 0.95145    & 0.95146   & 0.95145  \\ \hline
 \end{tabular}
-
+    
 \end{center}
-From the table we find that the Voting Classifier made of a Logistic Regression Classifier, Random Forest Classifier and a Bagging Classifier has more accuracy than each of them individually and that it gives a accuracy of 82.2 percent, precision of 83.8 percent and Recall score of 82.8 percent. 
-With the 1599 rows of data it has learned to classify between good and bad wine with an accuracy of 83\%. There has been found to be many variables with high co-linearity and through analysis of the data we have found the core components to be used to obtain an accurate prediction about the wine.
-From this we can find that the Voting Classifier has a more balanced and higher score than the rest of the models.
+
 \subsection{Confusion Matrix}
 We can also use Confusion matrices to evaluate a model. The matrix of each model is given below.
 \\The confusion matrix of the Logistic Regression model is shown below:
 \begin{center}
-   \includegraphics[width = 6cm]{1.png} 
+   \includegraphics[width = 6cm]{2.png} 
 \end{center}
 
 
 
-The Logistic Regression model has 178 True Negatives, 45 False Positives, 44 False negatives and 213 True Positives which shows that it is a good model.\\
-The confusion matrix of the Random Forest Classifier is shown below:\\
+The Logistic Regression model has 8826 True Negatives, 2887 False Positives, 2602 False negatives and 6466 True Positives \\
+
+The confusion matrix of the Decision tree Classifier is shown below:\\
 \begin{center}
-        \includegraphics[width = 6cm]{1.png}
+        \includegraphics[width = 6cm]{3.png}
 \end{center}
 
 
 
-The Random Forest Classifier has 179 True Negatives, 44 False Positives, 43 False negatives and 214 True Positives which shows that it is a good model.\\
-The confusion matrix of the Bagging Classifier is shown below:\\
+The Decision tree Classifier has 10903 True Negatives, 810 False Positives, 768 False negatives and 8300 True Positives \\
+
+The confusion matrix of the Random forest is shown below:\\
 \begin{center}
-    \includegraphics[width = 6cm]{1.png}
+        \includegraphics[width = 6cm]{5.jpg}
 \end{center}
 
 
 
-The Bagging Classifier has 170 True Negatives, 53 False Positives, 56 False negatives and 201 True Positives which shows that it is a good model.\\
-The confusion matrix of the Voting Classifier is shown below:\\
+The Decision tree Classifier has 0.54 True Negatives, 0.022 False Positives, 0.03 False negatives and 0.4 True Positives \\
+
+The confusion matrix of the SVM is shown below:\\
 \begin{center}
-    \includegraphics[width = 6cm]{1.png}
+        \includegraphics[width = 6cm]{4.jpg}
 \end{center}
 
-The Voting Classifier has 182 True Negatives, 41 False Positives, 44 False negatives and 213 True Positives which shows that it is a good model.\\
+
+
+The Decision tree Classifier has 0.55 True Negatives, 0.02 False Positives, 0.028 False negatives and 0.4 True Positives \\
+
 
 \subsection{Future discussion}
-This prediction model can be made more accurate with a dataset with more data so collecting a wider variety of wines and training the model on that would lead to more applications for the model.
-More advanced models to even predict the color of the output wine can be created so that the winery has access to all information regarding the wine they have produced. With the provision of adequate sensors we may even be able to provide live feedback on what a wine would be as a finished product before actual production starts.
+This prediction model can be made more accurate with a dataset with more data and training the model on that would lead to more applications for the model.
+More advanced models can be used to maximise the customer satisfaction.
 
 \section{Conclusions}
-The findings of, this experiment effectively illustrated how machine learning models may be used to predict the quality of red wine by taking into account its physicochemical qualities. With careful feature selection, thorough data analysis, and model training, we were able to produce dependable forecasts with noteworthy accuracy. The Voting Classifier demonstrated it's appropriateness for this task by coming out on top. The study's insights can help wine producers by facilitating early quality evaluation and intervention techniques. To improve prediction abilities, new features or sophisticated algorithms might be investigated in future studies. All things considered, this research demonstrates how machine learning may be used to optimize wine production and quality control procedures.\\
-For further information and details of the project you can visit our \href{https://github.com/VMOnGit/RedWineQuality}{{\texttt{GitHub Repository}}}
+The findings of this experiment effectively illustrated how machine learning models can be utilized to predict the customer's satisfaction by considering its  qualities. Through careful feature selection, thorough data analysis, and model training, we were able to generate dependable forecasts with noteworthy accuracy, with the Decision Tress Classifier emerging as the most suitable choice for this task. The insights garnered from this study have the potential to benefit the customer's satisfaction by enabling early quality evaluation and intervention techniques. To enhance prediction abilities further, future studies may explore the incorporation of new features or the utilization of more sophisticated algorithms. Taking everything into account, this research underscores the utility of machine learning in optimizing the customer satisfaction.\\
+For further information and details of the project you can visit our \href{https://github.com/Christojs/IUFC-Project/blob/main/customer_satisfaction_prediction.ipynb}{{\texttt{GitHub Repository}}}
 
-\section*{Acknowledgments}
-We would like to express our heartfelt gratitude and appreciation to Intel$^\copyright$ Corporation for providing an opportunity to this project.First and foremost, we would like to extend our sincere thanks to our team mentor Arun Sebastian for his invaluable guidance and constant support throughout the project.We are deeply indebted to our college Saintgits College of Engineering and Technology for providing us with the necessary resources,and sessions on machine learning. We extend our gratitude to all the researchers, scholars, and experts in the field of machine learning and natural language processing and artificial intelligence, whose seminal work has paved the way for our project. We acknowledge the mentors, institutional heads, and industrial mentors for their invaluable guidance and support in completing this industrial training under Intel$^\copyright$ -Unnati Programme whose expertise and encouragement have been instrumental in shaping our work.
-‌
+\section{Acknowledgments}
+We extend our heartfelt gratitude and appreciation to Intel© Corporation for providing an invaluable opportunity to this project. First and foremost, we would like to express our sincere thanks to our team mentor Dr.Pradeep C for his unwavering guidance and constant support throughout the entirety of the project's development. Additionally, we are deeply indebted to our esteemed institution, Saintgits College of Engineering and Technology, for generously providing us with the necessary resources and facilitating sessions on essential topics such as machine learning. Furthermore, we extend our gratitude to all the pioneering researchers, scholars, and experts in the field of machine learning, natural language processing, and artificial intelligence, whose groundbreaking work has paved the way for the advancement of our project. We also acknowledge with appreciation the mentors, institutional heads, and industrial mentors for their invaluable guidance and support throughout the completion of this industrial training under the Intel© - Unnati Programme, whose expertise and encouragement have been instrumental in shaping our work and fostering our professional growth.
 \section{Code discussion}
-Here we will be providing brief explanations of the code used to create our model. Most of the code is common across the board the changes being the names of the models and their output variables.
+In the following section, we will provide concise explanations of the code used to create our model. While most of the code remains consistent throughout, variations primarily occur in the names of the models and their respective output variables.
+
 \subsection{Code for Loading Required Libraries}
 This is a very important step where we imported our required models, scalers, data processing libraries and performance measuring libraries.
 \begin{lstlisting}[language=Python, caption=Libraries used]
@@ -273,64 +267,106 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 from sklearn.model_selection import train_test_split 
 from sklearn.preprocessing import StandardScaler
-from sklearn.ensemble import RandomForestClassifier,BaggingClassifier
+from sklearn.ensemble import RandomForestClassifier
 from sklearn.linear_model import LogisticRegression
+from sklearn.linear_model import LinearRegression
+from sklearn.cluster import KMeans
+from sklearn.metrics import mean_squared_error
 from sklearn.metrics import confusion_matrix
 from sklearn.tree import DecisionTreeClassifier
 from sklearn import metrics
 \end{lstlisting}
 
 \subsection{Data Pre-processing}
-In this section we will handle the multi-colinearity and the "quality" output to fit a classification model. This step also splits the data into training and testing set.
+In this section we will handle the multi-colinearity and fit a classification model. This step also splits the data into training and testing set.
 \begin{lstlisting}[language=Python]
-%Change the quality column to 0,i.e, bad wine and 1,i.e,good wine.
-df["quality"] = np.where(df["quality"] > 5, 1, 0)
 
 %Assign X and y
-y = df['quality']
-X = df.drop(['citric acid','free sulfur dioxide','density','quality'],axis = 1)
+df = pd.read_csv('data.csv')
 
-%Scale X values into similar value range to prevent biasing
-X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=23)
-sc = StandardScaler()#Scale down the data
-X_train[X_train.columns] = sc.fit_transform(X_train)
-X_test[X_test.columns] = sc.fit_transform(X_test)
+# Drop non-numeric columns and convert 'satisfaction' to numeric
+df_numeric = df.drop(['Gender', 'Customer Type', 'Type of Travel', 'Class'], axis=1)
+df_numeric['satisfaction'] = df_numeric['satisfaction'].map({'neutral or dissatisfied': 0, 'satisfied': 1})
+
+# Handling missing data
+df_numeric.fillna(df_numeric.mean(), inplace=True)  # Replace NaN values with the mean of each column
+
+# Split the data into features and target variable
+X = df_numeric.drop('satisfaction', axis=1)
+y = df_numeric['satisfaction']
+
+# Split the data into training and testing sets
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
 \end{lstlisting}
 The dataset is a clean and requires no further processing from here so we move on to model training and Evaluation.
 We will evaluate the models based on accuracy, precision and recall scores.
 \subsection{Model Training and Evaluation}
 The only difference between the rest of the models and this one is the name of model imported from \verb|sci-kit learn|. So we will explain the basic procedure followed using this as an example. Initially we loaded the \verb|LogisticRegression| model trained it on our \verb|X_train and y_train| data and then used the \verb|.predict()| function to make a prediction using \verb|X_test|.The evaluation of the model is done using \verb|accuracy_score, precision_score, recall_score| functions available in \verb|sci-kit learn|.\\
-\subsubsection{Logistic Regression model}
+
+\subsubsection{Logistic Regression }
 We will create a Logistic Regression using available functions in scikit-learn. 
-\begin{lstlisting}[language=Python, caption=Creating models]
- # Create a logistic regression model
-log_model = LogisticRegression()
-# Train the model
-log_model.fit(X_train, y_train)
-# Make predictions on the test set
-y_pred_log = model.predict(X_test)
+\begin{lstlisting}[language=Python]
+lr = LogisticRegression()
+lr.fit(X_train, y_train)
+y_pred_lr = lr.predict(X_test)
+print("Logistic Regression Classification Report:")
+print(classification_report(y_test, y_pred_lr))
+# Plot Logistic Regression Confusion Matrix
+lr_cm = confusion_matrix(y_test, y_pred_lr)
+plt.figure(figsize=(8, 6))
+sns.heatmap(lr_cm, annot=True, cmap='Blues', fmt='g')
+plt.xlabel('Predicted')
+plt.ylabel('Actual')
+plt.title('Logistic Regression Confusion Matrix')
+plt.show()
+\end{lstlisting}
+
+\subsubsection{Decision Tree}
+\begin{lstlisting}[language=Python]
+dt = DecisionTreeClassifier()
+dt.fit(X_train, y_train)
+y_pred_dt = dt.predict(X_test)
+print("Decision Tree Classification Report:")
+print(classification_report(y_test, y_pred_dt))
+# Plot Decision Tree Confusion Matrix
+dt_cm = confusion_matrix(y_test, y_pred_dt)
+plt.figure(figsize=(8, 6))
+sns.heatmap(dt_cm, annot=True, cmap='Blues', fmt='g')
+plt.xlabel('Predicted')
+plt.ylabel('Actual')
+plt.title('Decision Tree Confusion Matrix')
+plt.show()
 \end{lstlisting}
 
 
-\begin{lstlisting}
-accuracy = metrics.accuracy_score(y_test, y_pred_log)
-precision = metrics.precision_score(y_test, y_pred_log)
-recall = metrics.recall_score(y_test, y_pred_log)
-print("Accuracy:", accuracy)
-print("Precision:", precision)
-print("Recall:", recall)
 
+
+
+
+
+\subsubsection{Linear Regression }  We will create a Linear Regression using available functions in scikit-learn. 
+\begin{lstlisting}[language=Python]
+# Linear Regression
+lr = LinearRegression()
+lr.fit(X_train, y_train)
+y_pred_lr = lr.predict(X_test)
+print("Linear Regression Mean Squared Error:", mean_squared_error(y_test, y_pred_lr))
 \end{lstlisting}
-The scores are listed in Results and Discussion\ref{tab:my-table1}
-The code for making confusion matrices are available on our GitHub which is listed in \textbf{References} as well as in the \textbf{Conclusion} section.
-\newline
-\newline
+
+
 \section*{References}
 \begin{itemize}
-\item [1] S. Kumar, K. Agrawal, and N. Mandan, “Red Wine Quality Prediction Using Machine Learning Techniques,” IEEE Xplore, Jan. 01, 2020. https://ieeexplore.ieee.org/document/9104095
+\item [1]Zhang Qiuyan, “Study on the customer satisfaction evaluation model and index system of the management consulting enterprises
 
-\item [2]Y. Gupta, “Selection of important features and predicting wine quality using machine learning techniques,” Procedia Computer Science, vol. 125, pp. 305–312, 2018, doi: https://doi.org/10.1016/j.procs.2017.12.041.
+,” IEEE Xplore,2012,doi: https://ieeexplore.ieee.org/document/6321227.
+\item [2]Syanhrul Nizam Samsudin,and Bulan Abdullah, “Customer Satisfaction and Service Experience in Big Data Analytics for Automotive Service Advisor
+,” IEEE Xplore,20222,doi: https://ieeexplore.ieee.org/document/9815482.
 
-\item [3]K. R. Dahal, J. N. Dahal, H. Banjade, and S. Gaire, “Prediction of Wine Quality Using Machine Learning Algorithms,” Open Journal of Statistics, vol. 11, no. 2, pp. 278–289, Mar. 2021, doi: https://doi.org/10.4236/ojs.2021.112015.
+\item [3]Jianchi Xiang ,Xiaochang Chen, “Customer Satisfaction of E-Commerce Websites,” , Mar. 2009 International Workshop, doi: https://ieeexplore.ieee.org/abstract/document/5072797.
 ‌
-\item [4]H. Zhang, Z. Wang, J. He, and J. Tong, “Construction of Wine Quality Prediction Model based on
+\item [4]Motoi Iwashita, “Evaluating Customer Satisfaction with e-Books,” , Mar. 2015 International Workshop, doi: https://ieeexplore.ieee.org/abstract/document/7557781.
+‌
+
+\item [5]Pete Rotella and Sunita Chulani, “Analysis of customer satisfaction survey data,” , June . 2012 International Workshop, doi: https://dl.acm.org/doi/10.5555/2664446.2664459.
+‌\end{itemize}
+\end{document}
